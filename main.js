@@ -1,5 +1,5 @@
 import * as THREE from 'three';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+//import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import vertexShader from './shaders/vertexShader.glsl';
 import fragmentShader from './shaders/fragmentShader.glsl';
 
@@ -27,13 +27,13 @@ function onWindowResize() {
 }
 
 // Icosahedron geometry
-const geometry = new THREE.IcosahedronGeometry(1, 20);
+const geometry = new THREE.IcosahedronGeometry(2, 50,50);
 
 const material = new THREE.ShaderMaterial({
   
 vertexShader,
 fragmentShader,
-  // wireframe: true, // Uncomment to show wireframe representation of the icosahedron
+  wireframe: true, // Uncomment to show wireframe representation of the icosahedron
   uniforms: {
     uTime: {  value: 0 },
   },
@@ -41,24 +41,24 @@ fragmentShader,
 
 // Create mesh
 const icosahedron = new THREE.Mesh(geometry, material);
-icosahedron.position.y =-1.3;
+icosahedron.position.y =-2.5;
 scene.add(icosahedron);
 
 // Camera position
-camera.position.z =2;
+camera.position.z = 3;
 
-const controls = new OrbitControls(camera, renderer.domElement);
-controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
-controls.dampingFactor = 0.25;
-controls.screenSpacePanning = false;
-controls.maxPolarAngle = Math.PI / 2;
+// const controls = new OrbitControls(camera, renderer.domElement);
+// controls.enableDamping = true; // an animation loop is required when either damping or auto-rotation are enabled
+// controls.dampingFactor = 0.25;
+// controls.screenSpacePanning = false;
+// controls.maxPolarAngle = Math.PI / 2;
 
 const clock = new THREE.Clock();
 
 // Animation loop
 function animate() {
   requestAnimationFrame(animate);
-  controls.update(); // only if controls.enableDamping = true
+  // controls.update(); // only if controls.enableDamping = true
   // icosahedron.rotation.x += 0.01;
   material.uniforms.uTime.value= clock.getElapsedTime();
   renderer.render(scene, camera);
